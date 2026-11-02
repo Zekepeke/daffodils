@@ -1,0 +1,169 @@
+/* The daffodil bouquet. Everything is sized in vmin so it scales with the screen.
+   Each flower's position and size come from the lists in daffodils.js. */
+
+.sky,
+.bouquet {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bouquet {
+  --stretch: 1;
+  animation: bouquet-sway 6s ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
+
+/* The soft pink haze behind the flowers. */
+.bouquet__glow {
+  position: absolute;
+  left: 50%;
+  bottom: calc(52vmin * var(--stretch));
+  width: 112vmin;
+  height: calc(76vmin * var(--stretch));
+  transform: translate(-50%, 50%);
+  background: radial-gradient(closest-side, rgba(255, 185, 225, 0.3), rgba(240, 130, 200, 0.12) 62%, transparent);
+  animation: fade-in 3s 2s backwards;
+}
+
+/* One SVG unit is 1vmin wide, and the bouquet's base is at (50, 100). */
+.plant {
+  position: absolute;
+  left: -50vmin;
+  bottom: 0;
+  width: 100vmin;
+  height: calc(100vmin * var(--stretch));
+  overflow: visible;
+}
+
+.bouquet__leaves {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+}
+
+.leaf-blade {
+  transform-origin: 50px 100px;
+  animation: leaf-grow 2.4s ease-out var(--leaf-delay) backwards;
+}
+
+.leaf-blade--a { fill: #1f6b40; }
+.leaf-blade--b { fill: #2a7a49; }
+.leaf-blade--c { fill: #164e30; }
+
+.daffodil {
+  position: absolute;
+  left: calc(50% + var(--base));
+  bottom: 0;
+  width: 0;
+  height: 0;
+  transform-origin: bottom center;
+  animation: daffodil-sway var(--sway) ease-in-out var(--sway-delay) infinite alternate;
+}
+
+.daffodil__stem,
+.daffodil__neck {
+  fill: none;
+  stroke: #2f8350;
+  stroke-width: 0.95;
+  stroke-linecap: round;
+}
+
+.daffodil__stem {
+  stroke-dasharray: 1;
+  animation: stem-grow 2.4s ease-out var(--delay) backwards;
+}
+
+.daffodil__front {
+  z-index: 4;
+  animation: fade-in 0.6s var(--bloom-delay) backwards;
+}
+
+.daffodil__neck { stroke: #3a8f5a; stroke-width: 1.05; }
+.daffodil__spathe { fill: #3a8f5a; }
+
+.daffodil__bloom {
+  position: absolute;
+  left: var(--head-x);
+  bottom: calc(var(--head-y) * var(--stretch));
+  width: 0;
+  height: 0;
+  z-index: 3;
+  animation: bloom 1.4s cubic-bezier(0.2, 1.3, 0.4, 1) var(--bloom-delay) backwards;
+}
+
+.daffodil__head {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--size);
+  max-width: none;
+  transform: translate(-50%, -50%) rotate(var(--turn)) scaleX(var(--flip));
+  filter: drop-shadow(0 0 1.4vmin rgba(255, 195, 230, 0.55));
+}
+
+/* The large out-of-focus lights in the background. */
+.bokeh {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--d);
+  height: var(--d);
+  border-radius: 50%;
+  background: var(--c);
+  filter: blur(calc(var(--d) * 0.14));
+  box-shadow: 0 0 calc(var(--d) * 0.7) var(--c);
+  animation:
+    fade-in 3s var(--in) backwards,
+    bokeh-drift var(--t) ease-in-out var(--drift-delay) infinite alternate;
+}
+
+@keyframes bouquet-sway {
+  from { transform: rotate(-0.5deg); }
+  to { transform: rotate(0.5deg); }
+}
+
+@keyframes daffodil-sway {
+  from { transform: rotate(-0.7deg); }
+  to { transform: rotate(0.7deg); }
+}
+
+@keyframes stem-grow {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes leaf-grow {
+  from { transform: scale(0.2, 0); }
+}
+
+@keyframes bloom {
+  from { transform: scale(0) rotate(-40deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes bokeh-drift {
+  from { transform: translate(-1.5vmin, 2vmin); opacity: 0.45; }
+  to { transform: translate(1.5vmin, -2.5vmin); opacity: 0.95; }
+}
+
+/* Tall, narrow screens: longer stems so the bouquet fills more of the height. */
+@media (max-aspect-ratio: 3/4) {
+  .bouquet { --stretch: 1.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bouquet,
+  .daffodil,
+  .bokeh { animation: none; }
+  .leaf-blade,
+  .daffodil__stem,
+  .daffodil__front,
+  .daffodil__bloom { animation-duration: 0.01s; animation-delay: 0s; }
+}

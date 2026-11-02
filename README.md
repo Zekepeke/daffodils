@@ -1,11 +1,11 @@
 # daffodils
 
-An animated rose and flower scene built with plain HTML, SCSS, and JavaScript.
+An animated daffodil bouquet built with plain HTML, CSS, and JavaScript.
 
 ## Credits
 
 The base flower animation comes from [naveen-kumawat/Flower](https://github.com/naveen-kumawat/Flower).
-This project modifies it with new roses, extra styling, and a few additions.
+This project started as a rose version of it and now grows daffodils instead.
 
 ## Running locally
 
@@ -30,6 +30,10 @@ npx sass --watch style.scss style.css
 ## Project layout
 
 - `index.html` - page markup and inline styles
+- `daffodils.js` - the list of flowers; edit this to rearrange the bouquet
+- `daffodils.css` - styles and animation for the bouquet
+- `assets/daffodils/` - the cut-out flower heads
+- `tools/extract_heads.py` - cuts heads out of a sheet of flowers on black
 - `style.scss` - source styles
 - `style.css` / `style.css.map` - compiled styles
 - `main.js` - removes the `not-loaded` class after page load to start the animation
