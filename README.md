@@ -1,4 +1,4 @@
-# Roses
+# daffodils
 
 An animated rose and flower scene built with plain HTML, SCSS, and JavaScript.
 
@@ -37,4 +37,3 @@ npx sass --watch style.scss style.css
   Not loaded by default.
   To use it, add `<script src="dev-controls.js"></script>` to `index.html`, then use "Export CSS" to copy values into `style.css`.
   Remove it when finished.
-# daffodils
