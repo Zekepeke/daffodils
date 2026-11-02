@@ -17,37 +17,9 @@
 <!-- Chopped css added to my html lol -->
 <style>
 
-  .heart,
   .curved-m {
       position: center;
       animation: popUpFadeAway 3s forwards; /* The animation */
-  }
-
-  .heart {
-      width: 100px;
-      height: 100px;
-      background-color: #ff80ed;
-      transform: rotate(225deg);
-  }
-
-  .heart::before,
-  .heart::after {
-      content: '';
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background-color: #ff80ed;
-      border-radius: 50%;
-  }
-
-  .heart::before {
-      top: 50px;
-      left: 0;
-  }
-
-  .heart::after {
-      top: 0;
-      left: 50px;
   }
 
   .curved-m {
@@ -79,7 +51,7 @@
     
 <body class="not-loaded">
     <div class="night"></div>
-    <div class="heart"></div>
+    <div class="opener-hearts" aria-hidden="true"></div>
     
 
 

@@ -73,7 +73,7 @@
 }
 
 .daffodil__stem {
-  stroke-dasharray: 1;
+  stroke-dasharray: 1 2;
   animation: stem-grow 2.4s ease-out var(--delay) backwards;
 }
 
@@ -121,6 +121,57 @@
     bokeh-drift var(--t) ease-in-out var(--drift-delay) infinite alternate;
 }
 
+/* The opening hearts. Each one is positioned from OPENER_HEARTS in daffodils.js.
+   They grow in and fade out once, finishing about 4s after the animation starts. */
+.opener-hearts {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.opener-heart {
+  position: absolute;
+  left: calc(50% + var(--x) * 1vmin);
+  top: calc(50% - var(--y) * 1vmin);
+  width: 0;
+  height: 0;
+  opacity: 0;
+  animation: opener-heart 2.8s ease-in-out var(--delay) both;
+}
+
+/* A heart drawn from a square and two circles; --s is its overall width. */
+.opener-heart__shape {
+  --a: calc(var(--s) * 0.38);
+  position: absolute;
+  left: calc(var(--a) * -0.5);
+  top: calc(var(--s) * -0.05);
+  width: var(--a);
+  height: var(--a);
+  background: var(--c);
+  transform: rotate(-45deg);
+}
+
+.opener-heart__shape::before,
+.opener-heart__shape::after {
+  content: "";
+  position: absolute;
+  width: var(--a);
+  height: var(--a);
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.opener-heart__shape::before { top: calc(var(--a) * -0.5); left: 0; }
+.opener-heart__shape::after { top: 0; left: calc(var(--a) * 0.5); }
+
+@keyframes opener-heart {
+  0% { transform: scale(0); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
 @keyframes bouquet-sway {
   from { transform: rotate(-0.5deg); }
   to { transform: rotate(0.5deg); }
@@ -159,6 +210,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .opener-hearts { display: none; }
   .bouquet,
   .daffodil,
   .bokeh { animation: none; }

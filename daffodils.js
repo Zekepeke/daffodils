@@ -49,6 +49,22 @@ const BOKEH = [
   [61, 75, 2.4, "#8d2d92"], [37, 57, 2.4, "#8d2d92"], [40, 74, 1.6, "#a84d8b"],
 ];
 
+/* The hearts that open the animation, around the centre of the screen.
+   x, y: where the heart sits, in vmin (x right of centre, y up from centre)
+   size: overall width in vmin
+   color: its pink
+   delay: seconds after the animation starts; each heart lasts 2.8s, so the last
+          one is gone 4s in */
+const OPENER_HEARTS = [
+  { x: -2,  y: 3,   size: 24, color: "#ff80ed", delay: 0 },
+  { x: -25, y: 12,  size: 15, color: "#ff8fd0", delay: 0.2 },
+  { x: 22,  y: 14,  size: 16, color: "#f76fe0", delay: 0.4 },
+  { x: -19, y: -17, size: 14, color: "#ff94f0", delay: 0.55 },
+  { x: 20,  y: -14, size: 21, color: "#ff7ad6", delay: 0.75 },
+  { x: 1,   y: 28,  size: 13, color: "#ffa0e4", delay: 0.95 },
+  { x: -34, y: -3,  size: 12, color: "#f879ec", delay: 1.2 },
+];
+
 const n = (value) => value.toFixed(2);
 
 function bladePath([base, tip, height, width]) {
@@ -137,3 +153,9 @@ document.querySelector(".sky").innerHTML = BOKEH.map(
 
 document.querySelector(".bouquet").innerHTML =
   `<div class="bouquet__glow"></div>` + leavesMarkup() + DAFFODILS.map(daffodilMarkup).join("");
+
+
+document.querySelector(".opener-hearts").innerHTML = OPENER_HEARTS.map(
+  ({ x, y, size, color, delay }) =>
+    `<div class="opener-heart" style="--x:${x}; --y:${y}; --s:${size}vmin; --c:${color}; --delay:${delay}s"><div class="opener-heart__shape"></div></div>`
+).join("");
